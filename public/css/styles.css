@@ -1,0 +1,101 @@
+body {
+  padding-top: 56px;
+}
+.jumbotron {
+  background-image: url("public/img/img1.jpeg") no-repeat center;
+}
+/*.btn-primary {
+  background-color: #c60063;
+  border-color: #c60063;
+}
+.btn-primary:hover {
+  background-color: #eb82b7;
+  border-color: #eb82b7;
+}
+.btn-secondary {
+  background-color: transparent;
+  border-color: #c60063;
+  color: #c60063;
+}
+.btn-secondary:hover {
+  background-color:#c60063;
+  border-color: #ffffff;
+  color: #ffffff;
+}}
+
+/* Update colors */
+:root {
+  --primary-color: #6c63ff;
+  --secondary-color: #2c2c54;
+  --text-color: #333;
+}
+
+body {
+  color: var(--text-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.bg-light {
+  background-color: var(--secondary-color) !important;
+}
+.hero-section {
+  height: 100vh;
+  background-image: url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.navbar {
+  transition: background-color 0.5s ease;
+}
+
+.navbar-brand {
+  color: aliceblue !important;
+}
+
+.nav-link {
+  color: aliceblue !important;
+}
+.navbar-brand:hover {
+  color: rgb(204, 204, 204) !important;
+}
+
+.nav-link:hover {
+  color: rgb(204, 204, 204) !important;
+}
+
+.navbar.sticky {
+  background-color: var(--secondary-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-hover {
+  transition: transform 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-title{
+  margin-bottom: 100px;
+}
+
+.footer-text{
+  color: aliceblue !important;
+}
+.login {
+  min-height: 100vh;
+}
+
+
+
+.login-heading {
+  font-weight: 300;
+}
+
