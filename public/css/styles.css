@@ -1,9 +1,16 @@
+/* Global styles */
 body {
-  padding-top: 56px;
+  padding-top: 56px; /* Add padding to the top of the body */
 }
+
+/* Jumbotron styles */
 .jumbotron {
-  background-image: url("public/img/img1.jpeg") no-repeat center;
+  background-image: url("public/img/img1.jpeg"); /* Set background image */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+  background-position: center; /* Center the background image */
 }
+
+/* Button styles */
 /*.btn-primary {
   background-color: #c60063;
   border-color: #c60063;
@@ -18,84 +25,98 @@ body {
   color: #c60063;
 }
 .btn-secondary:hover {
-  background-color:#c60063;
+  background-color: #c60063;
   border-color: #ffffff;
   color: #ffffff;
-}}
+}}*/
 
-/* Update colors */
+/* Color variables */
 :root {
   --primary-color: #6c63ff;
   --secondary-color: #2c2c54;
   --text-color: #333;
 }
 
+/* Body text color */
 body {
   color: var(--text-color);
 }
 
+/* Primary button styles */
 .btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
 }
 
+/* Light background styles */
 .bg-light {
   background-color: var(--secondary-color) !important;
 }
+
+/* Hero section styles */
 .hero-section {
-  height: 100vh;
-  background-image: url('hero-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  height: 100vh; /* Full viewport height */
+  background-image: url('hero-bg.jpg'); /* Set background image */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  background-attachment: fixed; /* Fix the background image */
 }
+
+/* Navbar styles */
 .navbar {
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease; /* Smooth transition for background color change */
 }
 
-.navbar-brand {
-  color: aliceblue !important;
-}
-
+.navbar-brand,
 .nav-link {
-  color: aliceblue !important;
-}
-.navbar-brand:hover {
-  color: rgb(204, 204, 204) !important;
+  color: aliceblue !important; /* Navbar brand and link color */
 }
 
+.navbar-brand:hover,
 .nav-link:hover {
-  color: rgb(204, 204, 204) !important;
+  color: rgb(204, 204, 204) !important; /* Navbar brand and link hover color */
 }
 
 .navbar.sticky {
-  background-color: var(--secondary-color);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-color); /* Sticky navbar background color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Navbar box shadow */
 }
 
+/* Card hover effect */
 .card-hover {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease; /* Smooth transition for card hover effect */
 }
 
 .card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px); /* Move the card up on hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
 }
 
-.service-title{
-  margin-bottom: 100px;
+/* Service title styles */
+.service-title {
+  margin-bottom: 100px; /* Bottom margin for service title */
 }
 
-.footer-text{
-  color: aliceblue !important;
+/* Footer text color */
+.footer-text {
+  color: aliceblue !important; /* Footer text color */
 }
+
+/* Login page styles */
 .login {
-  min-height: 100vh;
+  display: flex; /* Flex layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
 }
 
-
-
-.login-heading {
-  font-weight: 300;
+/* Login card styles */
+.card {
+  max-width: 400px; /* Maximum width of the card */
+  margin: auto; /* Center the card */
 }
 
+/* Login body background color */
+.login-body {
+  background-color: aliceblue; /* Login body background color */
+}
