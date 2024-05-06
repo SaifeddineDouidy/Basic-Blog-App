@@ -27,9 +27,15 @@ class Database
 
     public function query($sql, $params = [])
     {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt;
+        } catch (PDOException $e) {
+            // Log the error or handle it in a more appropriate way
+            error_log('Database query error: ' . $e->getMessage());
+            throw $e; // Re-throw the exception for the caller to handle
+        }
     }
 
     public function fetchAll($sql, $params = [])

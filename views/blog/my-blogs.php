@@ -6,17 +6,19 @@ require_once 'models/Blogs.php';
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 } else {
-    $userId = '1'; // Default user ID if not logged in
+    // Redirect to login page or display an error message
+    //header("Location: login.php");
+    //exit;
+    $userId = 1;
 }
 
 // Initialize the database and blog model
 $db = new Database();
 
 // Fetch blogs for the current user
-$blogs = Blogs::findByUserId($userId, $db);
+$blogs = Blogs::findByAuthorId($userId, $db);
 
-// Render the view and pass the blogs data to it
-include 'views/blog/my-blogs.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +31,17 @@ include 'views/blog/my-blogs.php';
 <body>
     <h1>My Blogs</h1>
 
-    <?php foreach ($blogs as $blog):?>
-        <div class="blog-post">
-            <h2><?= htmlspecialchars($blog['title'])?></h2>
-            <p><?= htmlspecialchars($blog['description'])?></p>
-            <p>Posted on <?= htmlspecialchars($blog['created_at'])?></p>
-        </div>
-    <?php endforeach;?>
+    <?php if (count($blogs) > 0): ?>
+        <?php foreach ($blogs as $blog): ?>
+            <div class="blog-post">
+                <h2><?= htmlspecialchars($blog->getTitle())?></h2>
+                <p><?= htmlspecialchars($blog->getDescription())?></p>
+                <p>Posted on <?= htmlspecialchars($blog->getCreatedAt())?></p>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>You haven't created any blogs yet.</p>
+    <?php endif; ?>
 
     <!-- Include the footer -->
     <?php include 'views/footer.php';?>

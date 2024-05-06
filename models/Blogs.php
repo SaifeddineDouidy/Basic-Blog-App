@@ -4,21 +4,22 @@ class Blogs
 {
     private $id;
     private $title;
-    private $content;
-    private $user_id;
+    private $description;
+    private $author_id;
     private $created_at;
     private $db;
 
-    public function __construct($data = [], $db)
+    public function __construct(Database $db, $data = [])
     {
-        if (!empty($data)) {
-            $this->id = $data['id']?? null;
-            $this->title = $data['title']?? '';
-            $this->description = $data['description']?? '';
-            $this->user_id = $data['author_id']?? null;
-            $this->created_at = $data['created_at']?? null;
-        }
         $this->db = $db;
+
+        if (!empty($data)) {
+            $this->id = $data['id'] ?? null;
+            $this->title = $data['title'] ?? '';
+            $this->description = $data['description'] ?? '';
+            $this->author_id = $data['author_id'] ?? null;
+            $this->created_at = $data['created_at'] ?? null;
+        }
     }
 
     // Getter and Setter methods
@@ -37,9 +38,9 @@ class Blogs
         return $this->description;
     }
 
-    public function getUserId()
+    public function getAuthorId()
     {
-        return $this->user_id;
+        return $this->author_id;
     }
 
     public function getCreatedAt()
@@ -55,13 +56,13 @@ class Blogs
 
     public function setDescription($description)
     {
-        $this->validateContent($description);
+        $this->validateDescription($description);
         $this->description = $description;
     }
 
-    public function setUserId($user_id)
+    public function setAuthorId($author_id)
     {
-        $this->user_id = $user_id;
+        $this->author_id = $author_id;
     }
 
     public function setCreatedAt($created_at)
@@ -70,29 +71,27 @@ class Blogs
     }
 
     // Database Interaction Methods
-    public static function findAll($db)
+    public static function findAll(Database $db)
     {
         $query = "SELECT * FROM blogs";
-        $result = $db->query($query);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $result = $db->fetchAll($query);
+        $blogs = [];
+        foreach ($result as $row) {
+            $blogs[] = new Blogs($db, $row);
+        }
+        return $blogs;
     }
 
-    public static function findByUserId($userId, $db)
+    public static function findByAuthorId($authorId, Database $db)
     {
-        $query = "SELECT * FROM blogs WHERE author_id =?";
-        $stmt = $db->prepare($query);
-        
-        // Bind the parameter using PDO's syntax
-        $stmt->bindParam(1, $userId, PDO::PARAM_INT); // Assuming $userId is an integer
-        
-        // Execute the statement
-        $stmt->execute();
-        
-        // Fetch all results
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $query = "SELECT * FROM blogs WHERE author_id = :author_id";
+        $result = $db->fetchAll($query, [':author_id' => $authorId]);
+        $blogs = [];
+        foreach ($result as $row) {
+            $blogs[] = new Blogs($db, $row);
+        }
+        return $blogs;
     }
-    
 
     public function save()
     {
@@ -105,27 +104,36 @@ class Blogs
 
     private function create()
     {
-        $query = "INSERT INTO blogs (title, description, created_at, author_id ) VALUES (?,?,?,?)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssii", $this->title, $this->description, $this->user_id, time());
-        $stmt->execute();
-        $this->id = $stmt->insert_id;
+        $query = "INSERT INTO blogs (title, description, created_at, author_id) VALUES (:title, :description, :created_at, :author_id)";
+        $params = [
+            ':title' => $this->title,
+            ':description' => $this->description,
+            ':created_at' => time(),
+            ':author_id' => $this->author_id
+        ];
+        $this->db->query($query, $params);
+        $this->id = $this->db->pdo->lastInsertId();
     }
 
     private function update()
     {
-        $query = "UPDATE blogs SET title =?, description =?, updated_at =? WHERE id =?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssii", $this->title, $this->description, time(), $this->id);
-        $stmt->execute();
+        $query = "UPDATE blogs SET title = :title, description = :description, updated_at = :updated_at WHERE id = :id";
+        $params = [
+            ':title' => $this->title,
+            ':description' => $this->description,
+            ':updated_at' => time(),
+            ':id' => $this->id
+        ];
+        $this->db->query($query, $params);
     }
 
     public function delete()
     {
-        $query = "DELETE FROM blogs WHERE id =?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $this->id);
-        $stmt->execute();
+        $query = "DELETE FROM blogs WHERE id = :id";
+        $params = [
+            ':id' => $this->id
+        ];
+        $this->db->query($query, $params);
     }
 
     private function validateTitle($title)
@@ -136,11 +144,11 @@ class Blogs
         }
     }
 
-    private function validateContent($content)
+    private function validateDescription($description)
     {
-        // Simple validation: content must not be empty
-        if (empty(trim($content))) {
-            throw new Exception("Content cannot be empty.");
+        // Simple validation: description must not be empty
+        if (empty(trim($description))) {
+            throw new Exception("Description cannot be empty.");
         }
     }
 }
