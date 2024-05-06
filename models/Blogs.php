@@ -1,6 +1,6 @@
 <?php
 
-class Blog
+class Blogs
 {
     private $id;
     private $title;
@@ -14,8 +14,8 @@ class Blog
         if (!empty($data)) {
             $this->id = $data['id']?? null;
             $this->title = $data['title']?? '';
-            $this->content = $data['content']?? '';
-            $this->user_id = $data['user_id']?? null;
+            $this->description = $data['description']?? '';
+            $this->user_id = $data['author_id']?? null;
             $this->created_at = $data['created_at']?? null;
         }
         $this->db = $db;
@@ -32,9 +32,9 @@ class Blog
         return $this->title;
     }
 
-    public function getContent()
+    public function getDescription()
     {
-        return $this->content;
+        return $this->description;
     }
 
     public function getUserId()
@@ -53,10 +53,10 @@ class Blog
         $this->title = $title;
     }
 
-    public function setContent($content)
+    public function setDescription($description)
     {
-        $this->validateContent($content);
-        $this->content = $content;
+        $this->validateContent($description);
+        $this->description = $description;
     }
 
     public function setUserId($user_id)
@@ -81,11 +81,18 @@ class Blog
     {
         $query = "SELECT * FROM blogs WHERE author_id =?";
         $stmt = $db->prepare($query);
-        $stmt->bind_param("i", $userId);
+        
+        // Bind the parameter using PDO's syntax
+        $stmt->bindParam(1, $userId, PDO::PARAM_INT); // Assuming $userId is an integer
+        
+        // Execute the statement
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        
+        // Fetch all results
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
+    
 
     public function save()
     {
@@ -98,18 +105,18 @@ class Blog
 
     private function create()
     {
-        $query = "INSERT INTO blogs (title, content, user_id, created_at) VALUES (?,?,?,?)";
+        $query = "INSERT INTO blogs (title, description, created_at, author_id ) VALUES (?,?,?,?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssii", $this->title, $this->content, $this->user_id, time());
+        $stmt->bind_param("ssii", $this->title, $this->description, $this->user_id, time());
         $stmt->execute();
         $this->id = $stmt->insert_id;
     }
 
     private function update()
     {
-        $query = "UPDATE blogs SET title =?, content =?, updated_at =? WHERE id =?";
+        $query = "UPDATE blogs SET title =?, description =?, updated_at =? WHERE id =?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ssii", $this->title, $this->content, time(), $this->id);
+        $stmt->bind_param("ssii", $this->title, $this->description, time(), $this->id);
         $stmt->execute();
     }
 

@@ -1,21 +1,53 @@
 <?php
 
-// Database configuration
-$host = 'localhost'; // Your MySQL host
-$dbname = 'blog_app'; // Your MySQL database name
-$username = 'root'; // Your MySQL username
-$password = '';
+class Database
+{
+    private $host = 'localhost';
+    private $dbname = 'blog_app';
+    private $username = 'root';
+    private $password = '';
+    private $pdo;
 
-try {
-    // Create a new PDO instance
-    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    public function __construct()
+    {
+        try {
+            $dsn = "mysql:host=$this->host;dbname=$this->dbname;charset=utf8mb4";
+            $this->pdo = new PDO($dsn, $this->username, $this->password);
 
-    // Set PDO to throw exceptions on error
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Set PDO to throw exceptions on error
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Set PDO to return associative arrays
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    // If connection fails, display error message
-    die('Database connection failed: ' . $e->getMessage());
+            // Set PDO to return associative arrays
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // If connection fails, display error message
+            die('Database connection failed: '. $e->getMessage());
+        }
+    }
+
+    public function query($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    public function fetchAll($sql, $params = [])
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll();
+    }
+
+    public function prepare($sql, $params = [])
+    {
+        $stmt = $this->pdo->prepare($sql);
+        if ($params) {
+            $types = str_repeat('s', count($params)); // Assuming all parameters are strings
+            $stmt->execute($params, $types);
+        }
+        return $stmt;
+    }
+
+
+    // Add more methods as needed for INSERT, UPDATE, DELETE, etc.
 }

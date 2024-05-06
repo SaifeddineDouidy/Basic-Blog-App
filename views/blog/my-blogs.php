@@ -1,55 +1,43 @@
 <?php
+require_once 'config/Database.php';
+require_once 'models/Blogs.php';
+
 // Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+    $userId = $_SESSION['user_id'];
 } else {
-    // Redirect to login or show an error
-    //header('Location: views/auth/login.php');
-    //exit;
+    $userId = '1'; // Default user ID if not logged in
 }
+
+// Initialize the database and blog model
+$db = new Database();
+
+// Fetch blogs for the current user
+$blogs = Blogs::findByUserId($userId, $db);
+
+// Render the view and pass the blogs data to it
+include 'views/blog/my-blogs.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Landing Page</title>
-    <link href="public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./my-blogs.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blogs</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Blog App</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.php?route=all-blogs">Blogs </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?route=my-blogs">My Blogs <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-            </div>
+    <h1>My Blogs</h1>
+
+    <?php foreach ($blogs as $blog):?>
+        <div class="blog-post">
+            <h2><?= htmlspecialchars($blog['title'])?></h2>
+            <p><?= htmlspecialchars($blog['description'])?></p>
+            <p>Posted on <?= htmlspecialchars($blog['created_at'])?></p>
         </div>
-    </nav>
+    <?php endforeach;?>
 
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Hero Section -->
-            </div>
-            <!-- Add other columns or content here -->
-        </div>
-    </div>
-
-
-    <!-- JavaScript files -->
-    <script src="public/js/jquery.min.js"></script>
-    <script src="public/js/bootstrap.bundle.min.js"></script>
+    <!-- Include the footer -->
+    <?php include 'views/footer.php';?>
 </body>
 </html>
