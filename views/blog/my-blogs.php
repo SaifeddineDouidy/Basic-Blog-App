@@ -1,3 +1,13 @@
+<?php
+// Check if the user is logged in
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    // Redirect to login or show an error
+    //header('Location: views/auth/login.php');
+    //exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +36,7 @@
             </div>
         </div>
     </nav>
+
 
     <div class="container">
         <div class="row">

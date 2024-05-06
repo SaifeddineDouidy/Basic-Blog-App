@@ -1,7 +1,11 @@
 <?php
 
 // Check if the 'route' parameter is set in the URL
-$route = isset($_GET['route']) ? $_GET['route'] : '';
+if (isset($_GET['route'])) {
+    $route = $_GET['route'];
+} else {
+    $route = 'landing'; // Default route if no 'route' parameter is provided
+}
 
 switch ($route) {
     case 'login':
