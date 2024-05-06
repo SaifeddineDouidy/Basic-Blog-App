@@ -1,0 +1,13 @@
+/* Changing the background color */
+.navbar {
+    background-color: #007bff; 
+    height: 60px; 
+    margin-bottom: 20px;/* Example: a darker shade of blue */
+}
+
+/* Adding padding to navbar items */
+.navbar.nav-link {
+    padding: 0.5rem 1rem; /* Adjust as needed */
+    font-size: 18px; 
+}
+
