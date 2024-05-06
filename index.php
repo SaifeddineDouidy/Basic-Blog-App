@@ -10,6 +10,12 @@ switch ($route) {
     case 'register':
         include 'views/auth/register.php';
         break;
+    case 'my-blogs':
+        include 'views/blog/my-blogs.php';
+        break;
+    case 'all-blogs':
+        include 'views/blog/all-blogs.php';
+        break;
     // Add more routes as needed
     default:
         include 'views/LandingPage.php'; // Assuming views folder is at the same level as index.php

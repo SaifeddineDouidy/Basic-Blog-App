@@ -9,7 +9,7 @@ class Blog
     private $created_at;
     private $db;
 
-    public function __construct($data = [])
+    public function __construct($data = [], $db)
     {
         if (!empty($data)) {
             $this->id = $data['id'] ?? null;
@@ -18,7 +18,7 @@ class Blog
             $this->user_id = $data['user_id'] ?? null;
             $this->created_at = $data['created_at'] ?? null;
         }
-        $this->db=$db;
+        $this->db = $db;
     }
 
     // Getter and Setter methods
@@ -47,8 +47,28 @@ class Blog
         return $this->created_at;
     }
 
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+    }
+
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
     // Other methods for interacting with the database (create, read, update, delete)
-    public static function findAll()
+    public static function findAll($db)
     {
         // Query the database to retrieve all blogs
     }
@@ -58,12 +78,21 @@ class Blog
         // Query the database to retrieve blogs by user ID
     }
 
-    public function create()
+    public function save()
+    {
+        if ($this->id) {
+            $this->update();
+        } else {
+            $this->create();
+        }
+    }
+
+    private function create()
     {
         // Insert a new blog into the database
     }
 
-    public function update()
+    private function update()
     {
         // Update an existing blog in the database
     }
@@ -71,5 +100,15 @@ class Blog
     public function delete()
     {
         // Delete a blog from the database
+    }
+
+    private function validateTitle($title)
+    {
+        // Validate title
+    }
+
+    private function validateContent($content)
+    {
+        // Validate content
     }
 }

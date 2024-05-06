@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input class="form-check-input" type="checkbox" value="" id="remember">
                                         <label class="form-check-label" for="remember">Remember me</label>
                                     </div>
-                                    <a href="#!">Forgot password?</a>
+                                    <a href="index.php?route=login">Already registered?</a>
                                 </div>
                                 <!-- Submit button -->
                                 <div class="text-center">
