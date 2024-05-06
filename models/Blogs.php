@@ -79,7 +79,7 @@ class Blog
 
     public static function findByUserId($userId, $db)
     {
-        $query = "SELECT * FROM blogs WHERE user_id =?";
+        $query = "SELECT * FROM blogs WHERE author_id =?";
         $stmt = $db->prepare($query);
         $stmt->bind_param("i", $userId);
         $stmt->execute();
