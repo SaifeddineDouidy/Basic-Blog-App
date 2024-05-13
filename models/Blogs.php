@@ -153,18 +153,18 @@ class Blogs
         $this->db->query($query, $params);
     }
 
-    public function delete()
+    public function deleteById($blogId)
     {
-        $query = "DELETE FROM blogs WHERE id = :id";
-        $params = [
-            ':id' => $this->id
-        ];
-        $this->db->query($query, $params);
+        $sql = "DELETE FROM blogs WHERE id = :blogId";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':blogId', $blogId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
     }
 
     private function validateTitle($title)
     {
-        // Simple validation: title must not be empty
         if (empty(trim($title))) {
             throw new Exception("Title cannot be empty.");
         }
@@ -172,7 +172,6 @@ class Blogs
 
     private function validateDescription($description)
     {
-        // Simple validation: description must not be empty
         if (empty(trim($description))) {
             throw new Exception("Description cannot be empty.");
         }

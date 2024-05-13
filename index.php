@@ -23,6 +23,9 @@ switch ($route) {
     case 'search_results':
         include 'views/blog/search_results.php';
         break;
+
+
+        
     // Add more routes as needed
     default:
         include 'views/LandingPage.php'; // Assuming views folder is at the same level as index.php

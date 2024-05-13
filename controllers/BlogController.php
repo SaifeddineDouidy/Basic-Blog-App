@@ -72,7 +72,32 @@ class BlogController
             echo 'Error: '. $e->getMessage();
         }
     }
+    public function deleteBlog()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $blogId = $_POST['blogId'];
+            try {
+                $deleted = $this->blogModel->deleteById($blogId);
+                if ($deleted) {
+                    // Redirect or display a success message
+                    header('Location: index.php?route=my-blogs');
+                    exit;
+                } else {
+                    // Display an error message
+                    echo "Failed to delete the blog";
+                }
+            } catch (PDOException $e) {
+                // Handle exception
+                echo 'Error: ' . $e->getMessage();
+            }
+        } else {
+            // Redirect or display an error message for invalid requests
+            header('Location: my-blogs.php?error=true');
+            exit;
+        }
+    }
     
+
     
 
     

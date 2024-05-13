@@ -55,3 +55,16 @@ body {
     background-color: #0056b3;
     border-color: #0056b3;
 }
+.delete-button {
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.delete-button:active {
+    background-color: #f5c6cb;
+    color: #721c24;
+}
