@@ -28,6 +28,7 @@ include 'views/header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blogs</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/css/all-blogs.css" rel="stylesheet">
 </head>
 <body>
     <!-- Search Bar -->
@@ -49,12 +50,17 @@ include 'views/header.php';
         <?php foreach ($blogs as $blog):?>
             <div class="card ml-2 mb-3 border-dark blog-post-card">
                 <div class="card-body">
-                    <h2 class="card-title"><?= htmlspecialchars($blog->getTitle())?></h2>
+                    <h2 class="card-title"><?= htmlspecialchars($blog->getTitre())?></h2>
                     <p class="card-text"><?= htmlspecialchars($blog->getDescription())?></p>
                     <p class="card-text">
                         <small class="text-muted">
                             Posted on <?= htmlspecialchars(date('M d, Y', strtotime($blog->getCreatedAt())))?>
                             By <?= htmlspecialchars($blog->getAuthorName())?>
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Blog genre : <?= htmlspecialchars($blog->getGenre())?>
                         </small>
                     </p>
                     <a href="#" class="btn btn-primary">Read More</a>

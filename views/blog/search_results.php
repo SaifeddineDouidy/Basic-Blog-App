@@ -13,7 +13,7 @@
         <?php foreach ($blogs as $blog):?>
             <div class="card ml-2 mb-3 border-dark blog-post-card">
                 <div class="card-body">
-                    <h2 class="card-title"><?= htmlspecialchars($blog->getTitle())?></h2>
+                    <h2 class="card-title"><?= htmlspecialchars($blog->getTitre())?></h2>
                     <p class="card-text"><?= htmlspecialchars($blog->getDescription())?></p>
                     <p class="card-text">
                         <small class="text-muted">

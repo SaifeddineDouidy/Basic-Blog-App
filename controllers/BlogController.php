@@ -46,7 +46,7 @@ class BlogController
     {
         try {
             $currentUserId = $_SESSION['user_id'];
-            $blogs = $this->blogModel->findByUserId($currentUserId, $this->db);
+            $blogs = $this->blogModel->findByAuthorId($currentUserId, $this->db);
             // Render the header
             $this->renderView('header');
             // Render the 'my-blogs' view and pass the blogs data to it
@@ -61,7 +61,7 @@ class BlogController
     public function searchBlogs() {
         try {
             $searchQuery = isset($_GET['query'])? $_GET['query'] : '';
-            $blogs = $this->blogModel->searchByTitle($this->db, $searchQuery);
+            $blogs = $this->blogModel->searchByTitre($this->db, $searchQuery);
 
             // Assuming renderView is a method in your controller to render views
             $this->renderView('search_results', [
@@ -72,6 +72,41 @@ class BlogController
             echo 'Error: '. $e->getMessage();
         }
     }
+
+    public function updateBlog()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $blogId = $_POST['blogId'];
+            $titre = $_POST['titre'];
+            $description = $_POST['description'];
+            $genre = $_POST['genre'];
+    
+            try {
+                // Retrieve the blog from the database
+                $blog = $this->blogModel->findById($blogId);
+                if ($blog) {
+                    // Update the blog information
+                    $blog->setTitre($titre);
+                    $blog->setDescription($description);
+                    $blog->setGenre($genre);
+                    $blog->save();
+    
+                    // Return a JSON response
+                    echo json_encode(['success' => true]);
+                } else {
+                    // Return an error response if the blog is not found
+                    echo json_encode(['success' => false, 'message' => 'Blog not found']);
+                }
+            } catch (PDOException $e) {
+                // Handle the exception
+                echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+            }
+        } else {
+            // Return an error response for invalid requests
+            echo json_encode(['success' => false, 'message' => 'Invalid request']);
+        }
+    }
+    
     public function deleteBlog()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

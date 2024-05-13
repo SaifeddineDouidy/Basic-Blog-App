@@ -3,8 +3,9 @@
 class Blogs
 {
     private $id;
-    private $title;
+    private $titre;
     private $description;
+    private $genre;
     private $author_id;
     private $created_at;
     private $db;
@@ -15,8 +16,9 @@ class Blogs
 
         if (!empty($data)) {
             $this->id = $data['id'] ?? null;
-            $this->title = $data['title'] ?? '';
+            $this->titre = $data['titre'] ?? '';
             $this->description = $data['description'] ?? '';
+            $this->genre = $data['genre'] ?? '';
             $this->author_id = $data['author_id'] ?? null;
             $this->created_at = $data['created_at'] ?? null;
         }
@@ -28,9 +30,9 @@ class Blogs
         return $this->id;
     }
 
-    public function getTitle()
+    public function getTitre()
     {
-        return $this->title;
+        return $this->titre;
     }
 
     public function getDescription()
@@ -48,10 +50,14 @@ class Blogs
         return $this->created_at;
     }
 
-    public function setTitle($title)
+    public function getGenre(){
+        return $this->genre;
+    }
+
+    public function setTitre($titre)
     {
-        $this->validateTitle($title);
-        $this->title = $title;
+        $this->validateTitre($titre);
+        $this->titre = $titre;
     }
 
     public function setDescription($description)
@@ -70,6 +76,10 @@ class Blogs
         $this->created_at = $created_at;
     }
 
+    public function setGenre($genre){
+        $this->genre = $genre;
+    }
+
     private function getAuthorNameById($authorId)
     {
         $query = "SELECT username FROM users WHERE id = :author_id";
@@ -82,9 +92,9 @@ class Blogs
         return $this->getAuthorNameById($this->author_id);
     }
     
-    public static function searchByTitle($db, $searchQuery)
+    public static function searchBytitre($db, $searchQuery)
     {
-        $sql = "SELECT * FROM blogs WHERE title LIKE :searchQuery";
+        $sql = "SELECT * FROM blogs WHERE titre LIKE :searchQuery";
         $params = [
             ':searchQuery' => "%$searchQuery%"
         ];
@@ -130,9 +140,9 @@ class Blogs
 
     private function create()
     {
-        $query = "INSERT INTO blogs (title, description, created_at, author_id) VALUES (:title, :description, :created_at, :author_id)";
+        $query = "INSERT INTO blogs (titre, description, created_at, author_id) VALUES (:titre, :description, :created_at, :author_id)";
         $params = [
-            ':title' => $this->title,
+            ':titre' => $this->titre,
             ':description' => $this->description,
             ':created_at' => time(),
             ':author_id' => $this->author_id
@@ -143,9 +153,9 @@ class Blogs
 
     private function update()
     {
-        $query = "UPDATE blogs SET title = :title, description = :description, updated_at = :updated_at WHERE id = :id";
+        $query = "UPDATE blogs SET titre = :titre, description = :description, updated_at = :updated_at WHERE id = :id";
         $params = [
-            ':title' => $this->title,
+            ':titre' => $this->titre,
             ':description' => $this->description,
             ':updated_at' => time(),
             ':id' => $this->id
@@ -163,10 +173,10 @@ class Blogs
         return $stmt->rowCount() > 0;
     }
 
-    private function validateTitle($title)
+    private function validateTitre($titre)
     {
-        if (empty(trim($title))) {
-            throw new Exception("Title cannot be empty.");
+        if (empty(trim($titre))) {
+            throw new Exception("titre cannot be empty.");
         }
     }
 

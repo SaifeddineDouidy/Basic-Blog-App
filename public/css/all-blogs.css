@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 /* Changing the background color */
 .navbar {
     background-color: #007bff; 
@@ -59,7 +58,7 @@
 }
 
 .text-muted {
-    color: #6c757d; /* Adjust color of the text-muted class */
+    color: #47a1f0; /* Adjust color of the text-muted class */
 }
 
 .btn-primary {
