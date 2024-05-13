@@ -38,10 +38,11 @@ class Database
         }
     }
 
-    public function fetchAll($sql, $params = [])
+    public function fetchAll($query, $params = [])
     {
-        $stmt = $this->query($sql, $params);
-        return $stmt->fetchAll();
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function prepare($sql, $params = [])
@@ -52,6 +53,13 @@ class Database
             $stmt->execute($params, $types);
         }
         return $stmt;
+    }
+
+    public function fetchOne($query, $params = [])
+    {
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 

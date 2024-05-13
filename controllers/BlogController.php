@@ -11,32 +11,16 @@ class BlogController
     public function __construct()
     {
         $this->db = new Database();
-        $this->blogModel = new Blog($this->db);
+        $this->blogModel = new Blogs($this->db);
     }
 
-    private function renderView($viewName, $data = [])
+    public function renderView($viewName, $data = [])
     {
-        // Define paths to your view files
-        $viewPaths = [
-            'header' => 'views/header.php',
-            'footer' => 'views/footer.php',
-            'my-blogs' => 'views/blog/my-blogs.php',
-            'all-blogs' => 'views/blog/all-blogs.php',
-        ];
-
-        // Check if the view file exists
-        if (isset($viewPaths[$viewName])) {
-            $viewFile = $viewPaths[$viewName];
-            // Include the view file
+        extract($data);
+        $viewFile = "views/blog/$viewName.php";
+        if (file_exists($viewFile)) {
             include $viewFile;
-
-            // If there's data to pass to the view, extract it
-            if (!empty($data)) {
-                // Extract the data into variables
-                extract($data);
-            }
         } else {
-            // Handle the case where the view file doesn't exist
             echo "View file not found: $viewName";
         }
     }
@@ -74,6 +58,23 @@ class BlogController
             echo 'Error: '. $e->getMessage();
         }
     }
+    public function searchBlogs() {
+        try {
+            $searchQuery = isset($_GET['query'])? $_GET['query'] : '';
+            $blogs = $this->blogModel->searchByTitle($this->db, $searchQuery);
+
+            // Assuming renderView is a method in your controller to render views
+            $this->renderView('search_results', [
+                'blogs' => $blogs,
+                'searchQuery' => $searchQuery
+            ]);
+        } catch (PDOException $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+    
+    
+
     
 
 

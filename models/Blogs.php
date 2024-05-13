@@ -70,7 +70,33 @@ class Blogs
         $this->created_at = $created_at;
     }
 
-    // Database Interaction Methods
+    private function getAuthorNameById($authorId)
+    {
+        $query = "SELECT username FROM users WHERE id = :author_id";
+        $result = $this->db->fetchOne($query, [':author_id' => $authorId]);
+        return $result ? $result['username'] : null;
+    }
+
+    public function getAuthorName()
+    {
+        return $this->getAuthorNameById($this->author_id);
+    }
+    
+    public static function searchByTitle($db, $searchQuery)
+    {
+        $sql = "SELECT * FROM blogs WHERE title LIKE :searchQuery";
+        $params = [
+            ':searchQuery' => "%$searchQuery%"
+        ];
+
+        $result = $db->fetchAll($sql, $params);
+        $blogs = [];
+        foreach ($result as $row) {
+            $blogs[] = new Blogs($db, $row);
+        }
+        return $blogs;
+    }
+
     public static function findAll(Database $db)
     {
         $query = "SELECT * FROM blogs";
