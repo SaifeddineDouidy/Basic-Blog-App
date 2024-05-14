@@ -138,25 +138,37 @@ class Blogs
         }
     }
 
-    private function create()
+    public function create($author_id, $titre, $description, $genre)
     {
-        $query = "INSERT INTO blogs (titre, description, created_at, author_id) VALUES (:titre, :description, :created_at, :author_id)";
-        $params = [
-            ':titre' => $this->titre,
-            ':description' => $this->description,
-            ':created_at' => time(),
-            ':author_id' => $this->author_id
-        ];
-        $this->db->query($query, $params);
-        $this->id = $this->db->pdo->lastInsertId();
+        // Prepare the SQL statement
+        $sql = "INSERT INTO blogs (titre, description, genre, author_id) VALUES (?,?,?,?)";
+    
+        // Prepare the statement
+        $stmt = $this->db->prepare($sql);
+    
+        // Bind the parameters
+        $stmt->bindValue(1, $titre, PDO::PARAM_STR);
+        $stmt->bindValue(2, $description, PDO::PARAM_STR);
+        $stmt->bindValue(3, $genre, PDO::PARAM_STR);
+        $stmt->bindValue(4, $author_id, PDO::PARAM_INT); // Use the author_id parameter
+    
+        // Execute the statement
+        $stmt->execute();
+    
+        // Return the inserted blog's ID or a success indicator
+        return $stmt->rowCount() > 0;
     }
+    
+    
+
 
     private function update()
     {
-        $query = "UPDATE blogs SET titre = :titre, description = :description, updated_at = :updated_at WHERE id = :id";
+        $query = "UPDATE blogs SET titre = :titre, description = :description, genre = :genre, updated_at = :updated_at WHERE id = :id";
         $params = [
             ':titre' => $this->titre,
             ':description' => $this->description,
+            ':genre' => $this->genre,
             ':updated_at' => time(),
             ':id' => $this->id
         ];

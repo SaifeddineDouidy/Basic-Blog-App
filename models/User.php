@@ -48,9 +48,23 @@ class User
 
     }
 
-    public function create()
+    public static function emailExists($email, $db)
     {
-        // Insert a new user into the database
+        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        return $stmt->rowCount() > 0;
+    }
+
+    // Method to insert a new user
+    public static function createUser($username, $email, $password, $db)
+    {
+        $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+        $stmt->execute([
+            'username' => $username,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT) // Hash the password
+        ]);
+        return $stmt->rowCount() > 0;
     }
 
     public function update()

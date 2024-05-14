@@ -25,6 +25,30 @@ class Database
         }
     }
 
+    public function getConnection()
+    {
+        return $this->pdo;
+    }
+
+    public function insert($table, $columns, $values)
+    {
+        $columns = implode(',', array_keys($columns));
+        $placeholders = ':'. implode(', :', array_keys($columns));
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            foreach ($columns as $column => $value) {
+                $stmt->bindValue(":$column", $value);
+            }
+            $stmt->execute();
+            return $this->pdo->lastInsertId();
+        } catch (PDOException $e) {
+            error_log('Database insert error: '. $e->getMessage());
+            throw $e;
+        }
+    }
+
     public function query($sql, $params = [])
     {
         try {
@@ -32,8 +56,7 @@ class Database
             $stmt->execute($params);
             return $stmt;
         } catch (PDOException $e) {
-            // Log the error or handle it in a more appropriate way
-            error_log('Database query error: ' . $e->getMessage());
+            error_log('Database query error: '. $e->getMessage());
             throw $e; // Re-throw the exception for the caller to handle
         }
     }
@@ -62,6 +85,11 @@ class Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-    // Add more methods as needed for INSERT, UPDATE, DELETE, etc.
+    // New method to check if a table exists
+    public function tableExists($tableName)
+    {
+        $sql = "SHOW TABLES LIKE '$tableName'";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->rowCount() > 0;
+    }
 }
