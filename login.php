@@ -15,31 +15,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
+
               <!-- Wrap the form in a Bootstrap card -->
               <div class="card shadow-lg border-0 rounded-lg mt-4">
                 <div class="card-header"><h3 class="text-center font-weight-light">Welcome back!</h3></div>
                 <div class="card-body">
-                  <form>
-                    <div class="form-floating mb-3">
-                        <label for="floatingInput">Email address</label>
-                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                      
-                    </div>
-                    <div class="form-floating mb-3">
-                      <label for="floatingPassword">Password</label>
-                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                      
-                    </div>
 
-                    <div class="form-check mb-3">
-                      <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                      <label class="form-check-label" for="rememberPasswordCheck">
-                        Remember password
-                      </label>
-                    </div>
-
-                    <div class="d-grid">
-                    <button class="btn btn-md btn-primary btn-login fw-bold mb-2" type="submit">Login</button>
+                  <form action="logincontrol.php" method="post">
+                  <label>Email:</label><br>
+                  <input type="email" name="email" required><br>
+                  <label>Password:</label><br>
+                  <input type="password" name="password" required><br><br>
+                  <input type="submit" value="login">
+                  </form>
                       <div class="text-center">
                         <a class="small" href="#">Forgot password?</a>
                       </div>

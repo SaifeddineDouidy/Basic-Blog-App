@@ -1,4 +1,5 @@
 <?php
+require_once './config/Database.php'; // Include the Database configuration
 
 class User
 {
@@ -6,9 +7,9 @@ class User
     private $username;
     private $email;
     private $password;
-    private $db;
 
-    public function __construct($data = [], $db)
+
+    public function __construct($data = [])
     {
         if (!empty($data)) {
             $this->id = $data['id'] ?? null;
@@ -16,12 +17,42 @@ class User
             $this->email = $data['email'] ?? '';
             $this->password = $data['password'] ?? '';
         }
-        $this->db = $db;
+   
     }
 
-    // Getter and Setter methods
+    public static function findUser($email, $password, $db)
+{
+    $db->query("SELECT * FROM users WHERE email = :email AND password = :password");
+    $db->bind(':email', $email);
+    $db->bind(':password', $password);
+
+    // Execute the query and fetch the user data
+    $user = $db->single();
+
+    // Debugging: Output the executed SQL query
+    echo "Executed SQL query: " . $db->getSQLQuery() . "<br>";
+
+    // Debugging: Output the fetched user data
+    echo "Fetched user data: ";
+    var_dump($user);
+    echo "<br>";
+
+    // Check if the user exists
+    if ($user) {
+        // Return a new User object with user data
+        return new User($user, $db);
+    } else {
+        // Return false if user does not exist
+        return false;
+    }
+}
+
+
+
+    // Getter methods
     public function getId()
     {
+        echo 'fine';
         return $this->id;
     }
 
@@ -35,31 +66,6 @@ class User
         return $this->email;
     }
 
-                       
     // Other methods for interacting with the database (create, read, update, delete)
-    public static function findById($id, $db)
-    {
-        // Query the database to retrieve a user by ID using $db
-    }
-
-    public static function findByEmail($email, $db)
-    {
-        // Query the database to retrieve a user by email using $db                    
-
-    }
-
-    public function create()
-    {
-        // Insert a new user into the database
-    }
-
-    public function update()
-    {
-        // Update an existing user in the database
-    }
-
-    public function delete()
-    {
-        // Delete a user from the database
-    }
 }
+?>
