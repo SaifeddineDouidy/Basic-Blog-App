@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div style="border-style: solid; border-width: 5px; border-color: #6b91F9; margin: 10px; margin-right: 1100px; margin-left: 30px; border-radius: 10px; padding: 5px; text-align: center; ">
+    <div style="border-style: solid; border-width: 5px; border-color: #6b63ff; margin: 10px; margin-right: 1100px; margin-left: 30px; border-radius: 10px; padding: 5px; text-align: center; ">
     <h3 class='' >Search Results for: <?= htmlspecialchars($searchQuery)?></h3></div>
     <?php if (count($blogs) > 0):?>
         <?php foreach ($blogs as $blog):?>

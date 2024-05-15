@@ -47,7 +47,7 @@
                         <div class="col-md-12">
                             <h1 class="display-4 animate__animated animate__fadeInUp">Unleash Your Blogging Potential</h1>
                             <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Empowering Your Blogging Success, Nurturing Your Digital Community.</p>
-                            <a href="#" class="btn btn-primary btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s">Get Started</a>
+                            <a href="#" class="btn btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s" style="background-color: #6b63ff; color: white;">Get Started</a>
                         </div>
                     </div>
                 </div>

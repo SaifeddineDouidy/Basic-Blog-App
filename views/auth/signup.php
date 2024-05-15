@@ -18,8 +18,8 @@
         }
     </style>
 </head>
-<body class="signup-body">
-    <div class="container">
+<body class="signup-body" style="background-color: white;">
+    <div class="container" style="background-color: white;">
         <div class="card">
             <div class="card-body p-5 text-center">
                 <h3 class="mb-5">Sign up</h3>
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Password" required>
                     </div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Signup</button>
+                    <button class="btn btn-lg btn-block" type="submit" style="background-color: green; box-shadow: 0 0 20px rgb(95, 125, 162); color: white;">Signup</button>
                     <hr class="my-4">
                     <div id="reg_link" class="text-center">
                         <a href="views/auth/login.php" class="text-info">Already have an account? Login here</a>
