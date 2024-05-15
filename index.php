@@ -30,6 +30,9 @@ if ($route === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'all-blogs':
             include 'views/blog/all-blogs.php';
             break;
+        case 'create_blog':
+            include './create_blog.php';
+            break;
         case 'search_results':
             include 'views/blog/search_results.php';
             break;

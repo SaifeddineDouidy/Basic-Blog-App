@@ -89,7 +89,7 @@ $blogs = Blogs::findByAuthorId($userId, $db);
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="createBlogForm">
+            <form action="create_blog.php" id="createBlogForm">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="newTitre" class="form-label">Titre</label>
@@ -219,7 +219,7 @@ $blogs = Blogs::findByAuthorId($userId, $db);
                 var formData = $(this).serialize();
                 console.log(formData);
                 $.ajax({
-                    url: 'create_blog.php',
+                    url: '/create_blog.php',
                     type: 'POST',
                     data: formData,
                     success: function(response) {

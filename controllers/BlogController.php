@@ -38,7 +38,8 @@ class BlogController
     public function createBlog($titre, $description, $genre)
     {
         try {
-            $currentUserId = $_SESSION['user_id'];
+            //$currentUserId = $_SESSION['user_id'];
+            $currentUserId = 1; // Testing purposes
             // Assuming the Blogs model has a create method that accepts these parameters
             $blog = $this->blogModel->create($currentUserId, $titre, $description, $genre);
     

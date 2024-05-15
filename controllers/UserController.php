@@ -42,7 +42,7 @@ class UserController {
             $password = $_POST['password'];
     
             if (User::checkCredentials($email, $password, $db)) {
-                $_SESSION['user_id'] = $db->lastInsertId(); // Correct this if needed, it should fetch the user ID, not the last inserted ID.
+                $_SESSION['user_id'] = $db->lastInsertId(); 
                 $_SESSION['username'] = $email;
                 $_SESSION['logged_in'] = true;
     
