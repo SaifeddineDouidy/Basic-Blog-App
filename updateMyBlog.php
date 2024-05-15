@@ -1,21 +1,19 @@
+// updateMyBlog.php
 <?php
-
 require_once 'controllers/BlogController.php';
 
-// Dans votre fichier principal (index.php ou autre)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['blogId'];
-    $titre = $_POST['titre'];
-    $description = $_POST['description'];
-    $genre = $_POST['genre'];
+    $blogId = isset($_POST['blogId']) ? $_POST['blogId'] : null;
+    $titre = isset($_POST['titre']) ? $_POST['titre'] : null;
+    $description = isset($_POST['description']) ? $_POST['description'] : null;
+    $genre = isset($_POST['genre']) ? $_POST['genre'] : null;
 
     $blogController = new BlogController();
-    $result = $blogController->updateBlog($id, $titre, $description, $genre);
+    $result = $blogController->updateBlog($blogId, $titre, $description, $genre);
 
-    // Gérer la réponse, par exemple en affichant un message de succès ou d'erreur
-    if ($result['success']) {
-        echo "Blog mis à jour avec succès.";
-    } else {
-        echo "Erreur lors de la mise à jour du blog: " . $result['message'];
-    }
+    http_response_code($result['status_code']);
+    echo json_encode($result);
+} else {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }

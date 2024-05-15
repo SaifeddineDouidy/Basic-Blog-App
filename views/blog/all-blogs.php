@@ -58,7 +58,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 
 
     <!-- Include the footer -->
-    <?php include 'views/footer.php';?>
 </body>
 </html><?php
 
