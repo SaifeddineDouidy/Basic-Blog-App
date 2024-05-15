@@ -27,9 +27,7 @@
                 <div class="card-body p-5 text-center">
                     <h3 class="mb-5">Login</h3>
                     <form id="signup-form" method="post" action="index.php?route=login">
-                        <?php if (isset($message)): ?>
-                            <div class="notification <?= $message_type ?>"><?= $message ?></div>
-                        <?php endif; ?>
+
                         <div class="form-group">
                             <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Email" required>
                         </div>

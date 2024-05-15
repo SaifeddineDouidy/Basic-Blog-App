@@ -68,8 +68,5 @@ include 'views/header.php';
             </div>
         <?php endforeach;?>
     <?php endif;?>
-
-
-    <!-- Include the footer -->
 </body>
 </html>
