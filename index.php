@@ -12,6 +12,7 @@ $route = $_GET['route']?? 'landing';
 $userController = new UserController($db);
 
 if ($route === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    include 'views/auth/register.php';
     $userController->register($db); // Execute the register method if it's a POST request
 } elseif ($route === 'register') {
     include 'views/auth/signup.php'; // Just display the view if it's not a POST request
@@ -19,7 +20,6 @@ if ($route === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     switch ($route) {
         case 'login':
             include 'views/auth/login.php';
-            $userController->login($db);
             break;
         case 'signup':
             include 'views/auth/signup.php';

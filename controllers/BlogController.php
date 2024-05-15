@@ -69,14 +69,9 @@ class BlogController
     {
         try {
             $blogs = $this->blogModel->findAll();
-            // Render the header
             $this->renderView('header');
-            // Render the 'all-blogs' view and pass the blogs data to it
             $this->renderView('all-blogs', ['blogs' => $blogs]);
-            // Render the footer
-            $this->renderView('footer');
         } catch (PDOException $e) {
-            // Handle exception
             echo 'Error: '. $e->getMessage();
         }
     }
@@ -99,10 +94,9 @@ class BlogController
     }
     public function searchBlogs() {
         try {
-            $searchQuery = isset($_GET['query'])? $_GET['query'] : '';
+            $searchQuery = isset($_GET['query']) ? $_GET['query'] : '';
             $blogs = $this->blogModel->searchByTitre($this->db, $searchQuery);
 
-            // Assuming renderView is a method in your controller to render views
             $this->renderView('search_results', [
                 'blogs' => $blogs,
                 'searchQuery' => $searchQuery

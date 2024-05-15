@@ -1,0 +1,198 @@
+/* Global styles */
+body {
+    padding-top: 56px; /* Add padding to the top of the body */
+  }
+  
+  /* Jumbotron styles */
+  .jumbotron {
+    background-image: url("public/img/img1.jpeg"); /* Set background image */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    background-position: center; /* Center the background image */
+  }
+  
+  /* Button styles */
+  /*.btn-primary {
+    background-color: #c60063;
+    border-color: #c60063;
+  }
+  .btn-primary:hover {
+    background-color: #eb82b7;
+    border-color: #eb82b7;
+  }
+  .btn-secondary {
+    background-color: transparent;
+    border-color: #c60063;
+    color: #c60063;
+  }
+  .btn-secondary:hover {
+    background-color: #c60063;
+    border-color: #ffffff;
+    color: #ffffff;
+  }}*/
+  
+  /* Color variables */
+  :root {
+    --primary-color: #6c63ff;
+    --secondary-color: #2c2c54;
+    --text-color: #333;
+  }
+  
+  /* Body text color */
+  body {
+    color: var(--text-color);
+  }
+  
+  /* Primary button styles */
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  /* Light background styles */
+  .bg-light {
+    background-color: var(--secondary-color) !important;
+  }
+  
+  /* Hero section styles */
+  .hero-section {
+    height: 100vh; /* Full viewport height */
+    background-image: url('hero-bg.jpg'); /* Set background image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed; /* Fix the background image */
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    transition: background-color 0.5s ease; /* Smooth transition for background color change */
+  }
+  
+  .navbar-brand,
+  .nav-link {
+    color: aliceblue !important; /* Navbar brand and link color */
+  }
+  
+  .navbar-brand:hover,
+  .nav-link:hover {
+    color: rgb(204, 204, 204) !important; /* Navbar brand and link hover color */
+  }
+  
+  .navbar.sticky {
+    background-color: var(--secondary-color); /* Sticky navbar background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Navbar box shadow */
+  }
+  
+  /* Card hover effect */
+  .card-hover {
+    transition: transform 0.3s ease; /* Smooth transition for card hover effect */
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-5px); /* Move the card up on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+  }
+  
+  /* Service title styles */
+  .service-title {
+    margin-bottom: 100px; /* Bottom margin for service title */
+  }
+  
+  /* Footer text color */
+  .footer-text {
+    color: aliceblue !important; /* Footer text color */
+  }
+  
+  /* Login page styles */
+  .login {
+    display: flex; /* Flex layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+  }
+  
+  /* Login card styles */
+  .card {
+    max-width: 400px; /* Maximum width of the card */
+    margin: auto; /* Center the card */
+  }
+  
+  /* Login body background color */
+  .login-body {
+    background-color: aliceblue; /* Login body background color */
+  }
+  
+  .img-fluid{
+      width: 300px;
+      height: auto;
+  }
+  
+  /* General Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* Services Section */
+  #services {
+    padding: 60px 0;
+  }
+  
+  #services .text-center {
+    margin-bottom: 40px;
+  }
+  
+  #services .card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  #services .card-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  #services .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  #services .card-body {
+    padding: 20px;
+  }
+  
+  #services .card-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  #services .card-text {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  #services .card-footer {
+    background-color: transparent;
+    border-top: none;
+    padding-top: 0;
+    text-align: center;
+  }
+  
+  #services .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  #services .btn:hover {
+    background-color: #0056b3;
+  }
+  

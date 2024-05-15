@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,13 +18,18 @@
         .notification {
             margin-bottom: 15px;
         }
+        .containerLog{
+          border:'none';
+          width: 70%;
+        }
+
     </style>
 </head>
 <body class="signup-body">
 <section class="vh-100">
-    <div class="container h-100 d-flex justify-content-center align-items-center">
+    <div id="containerLog" class="container h-100 d-flex justify-content-center align-items-center">
         <div class="col-md-8 col-lg-6 col-xl-10">
-            <div class="card shadow-2-strong">
+            <div class="card ">
                 <div class="card-body p-5 text-center">
                     <h3 class="mb-5">Login</h3>
                     <form id="signup-form" method="post" action="index.php?route=login">
@@ -41,7 +47,7 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                         <hr class="my-4">
                         <div id="reg_link" class="text-center">
-                            <a href="views/auth/signup.php" class="text-info">Don't have an account? Signup here</a>
+                            <a href="index.php?route=signup" class="text-info">Don't have an account? Signup here</a>
                         </div>
                     </form>
                 </div>

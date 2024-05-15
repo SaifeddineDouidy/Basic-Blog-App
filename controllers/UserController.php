@@ -13,7 +13,7 @@ class UserController {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-    
+        
             if ($this->model->emailExists($email, $db)) {
                 $_SESSION['message'] = "Adresse e-mail déjà existante!";
                 $_SESSION['message_type'] = "yellow";
@@ -29,9 +29,8 @@ class UserController {
                 }
             }
         }
-    
-        require_once 'views/auth/signup.php';
     }
+    
     
     public function login($db) {
         if (session_status() == PHP_SESSION_NONE) {

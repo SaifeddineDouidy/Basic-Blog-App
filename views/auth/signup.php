@@ -43,7 +43,7 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Signup</button>
                         <hr class="my-4">
                         <div id="reg_link" class="text-center">
-                            <a href="views/auth/login.php" class="text-info">Already have an account? Login here</a>
+                            <a href="index.php?route=login" class="text-info">Already have an account? Login here</a>
                         </div>
                     </form>
                 </div>
