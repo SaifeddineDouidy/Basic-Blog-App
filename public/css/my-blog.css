@@ -1,6 +1,6 @@
 /* Changing the background color */
 .navbar {
-    background-color: #007bff; 
+    background-color: #513db4; 
     height: 60px; 
     margin-bottom: 20px;/* Example: a darker shade of blue */
 }
@@ -26,6 +26,7 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 100%;
+    height: 300px;
 }
 
 .card:hover {
@@ -67,4 +68,17 @@ body {
 .delete-button:active {
     background-color: #f5c6cb;
     color: #721c24;
+}
+
+.thisbody{
+    height: 800px;
+    
+    padding: 50px; 
+}
+
+.custom-card-body {
+    padding: 20px; 
+    height: 200px;
+    overflow-y: auto; 
+
 }

@@ -9,7 +9,7 @@ class User
     private $password;
 
 
-    public function __construct($data = [])
+    public function __construct($data = [], $db)
     {
         if (!empty($data)) {
             $this->id = $data['id'] ?? null;
@@ -17,12 +17,12 @@ class User
             $this->email = $data['email'] ?? '';
             $this->password = $data['password'] ?? '';
         }
-   
+        $this->db = $db;
     }
 
     public static function findUser($email, $password, $db)
 {
-    $db->query("SELECT * FROM users WHERE email = :email AND password = :password");
+    $db->query("SELECT * FROM User WHERE email = :email AND password = :password");
     $db->bind(':email', $email);
     $db->bind(':password', $password);
 
@@ -78,15 +78,9 @@ class User
 
     }
 
-    public static function emailExists($email, $db)
-    {
-        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-        return $stmt->rowCount() > 0;
-    }
 
     public static function checkCredentials($email, $password, $db) {
-        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
     
@@ -98,13 +92,16 @@ class User
             return false;
         }
     }
+     // Method to check if an email exists in the database
+     public static function emailExists($email, $db) {
+        $stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        return $stmt->rowCount() > 0;
+    }
 
-    
-
-    // Method to insert a new user
-    public static function createUser($username, $email, $password, $db)
-    {
-        $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+    // Method to create a new user
+    public static function createUser($username, $email, $password, $db) {
+        $stmt = $db->prepare("INSERT INTO User (username, email, password) VALUES (:username, :email, :password)");
         $stmt->execute([
             'username' => $username,
             'email' => $email,
@@ -113,14 +110,4 @@ class User
         return $stmt->rowCount() > 0;
     }
 
-
-    public function update()
-    {
-        // Update an existing user in the database
-    }
-
-    public function delete()
-    {
-        // Delete a user from the database
-    }
 }

@@ -10,15 +10,6 @@ class BlogController
 
     public function __construct()
     {
-        session_start();
-
-        // Check if the user is logged in
-        if (!isset($_SESSION['user_id'])) {
-            // Redirect to login page or handle the situation
-            //header("Location: login.php");
-            $userId = 1;
-            exit;
-        }
         $this->db = new Database();
         $this->blogModel = new Blogs($this->db);
     }
@@ -33,36 +24,6 @@ class BlogController
             echo "View file not found: $viewName";
         }
     }
-
-
-    public function createBlog($titre, $description, $genre)
-    {
-        try {
-            $currentUserId = $_SESSION['user_id'];
-            // Assuming the Blogs model has a create method that accepts these parameters
-            $blog = $this->blogModel->create($currentUserId, $titre, $description, $genre);
-    
-            if ($blog) {
-                return [
-                   'success' => true,
-                   'status_code' => 201 // Created
-                ];
-            } else {
-                return [
-                   'success' => false,
-                   'message' => 'Failed to create the blog',
-                   'status_code' => 500 // Internal Server Error
-                ];
-            }
-        } catch (PDOException $e) {
-            return [
-               'success' => false,
-               'message' => 'Error: '. $e->getMessage(),
-               'status_code' => 500 // Internal Server Error
-            ];
-        }
-    }
-    
 
 
     public function getAllBlogs()
@@ -111,66 +72,40 @@ class BlogController
             echo 'Error: '. $e->getMessage();
         }
     }
-    public function updateBlog($blogId, $titre, $description, $genre)
+
+    public function updateBlog()
     {
-        // Check if the required input data is present
-        if (empty($blogId) || empty($titre) || empty($description) || empty($genre)) {
-            return [
-                'success' => false,
-                'message' => 'Invalid or missing input data',
-                'status_code' => 400 // Bad Request
-            ];
-        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $blogId = $_POST['blogId'];
+            $titre = $_POST['titre'];
+            $description = $_POST['description'];
+            $genre = $_POST['genre'];
     
-        try {
-            $blog = $this->blogModel->findById($blogId);
-            if (!$blog) {
-                return [
-                    'success' => false,
-                    'message' => 'Blog not found',
-                    'status_code' => 404 // Not Found
-                ];
+            try {
+                // Retrieve the blog from the database
+                $blog = $this->blogModel->findById($blogId);
+                if ($blog) {
+                    // Update the blog information
+                    $blog->setTitre($titre);
+                    $blog->setDescription($description);
+                    $blog->setGenre($genre);
+                    $blog->save();
+    
+                    // Return a JSON response
+                    echo json_encode(['success' => true]);
+                } else {
+                    // Return an error response if the blog is not found
+                    echo json_encode(['success' => false, 'message' => 'Blog not found']);
+                }
+            } catch (PDOException $e) {
+                // Handle the exception
+                echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
             }
-    
-            $blog->setTitre($titre)
-                ->setDescription($description)
-                ->setGenre($genre)
-                ->save();
-    
-            return [
-                'success' => true,
-                'status_code' => 200 // OK
-            ];
-        } catch (PDOException $e) {
-            return [
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage(),
-                'status_code' => 500 // Internal Server Error
-            ];
+        } else {
+            // Return an error response for invalid requests
+            echo json_encode(['success' => false, 'message' => 'Invalid request']);
         }
     }
-
-
-    public function getBlogData($blogId)
-{
-    try {
-        $blog = $this->blogModel->findById($blogId);
-        if ($blog) {
-            return [
-                'id' => $blog->getId(),
-                'titre' => $blog->getTitre(),
-                'description' => $blog->getDescription(),
-                'genre' => $blog->getGenre()
-            ];
-        }
-        return null;
-    } catch (PDOException $e) {
-        // Handle exception
-        echo 'Error: ' . $e->getMessage();
-        return null;
-    }
-}
-    
     
     public function deleteBlog()
     {
@@ -183,16 +118,56 @@ class BlogController
                     header('Location: index.php?route=my-blogs');
                     exit;
                 } else {
+                    // Display an error message
                     echo "Failed to delete the blog";
                 }
             } catch (PDOException $e) {
+                // Handle exception
                 echo 'Error: ' . $e->getMessage();
             }
         } else {
+            // Redirect or display an error message for invalid requests
             header('Location: my-blogs.php?error=true');
             exit;
         }
     }
+
+    public function getLastBlog()
+    {
+        try {
+            $lastBlog = $this->blogModel->findLastBlog();
+            if ($lastBlog) {
+                $this->renderView('last-blog', ['lastBlog' => $lastBlog]);
+            } else {
+                // Handle case when no last blog is found
+                echo "No last blog found";
+            }
+        } catch (PDOException $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+
+    public function getOldestBlog()
+    {
+        try {
+            $oldestBlog = $this->blogModel->findOldestBlog();
+            $this->renderView('oldest-Blog', ['oldestBlog' => $oldestBlog]);
+        } catch (PDOException $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
+
+        
+    public function getBlogsByGenre($genre)
+{
+    try {
+        // Assuming you have a method named findBlogsByGenre in your Blogs model
+        $blogs = $this->blogModel->findBlogsByGenre($genre);
+        $this->renderView('blogs-by-genre', ['blogs' => $blogs, 'genre' => $genre]);
+    } catch (PDOException $e) {
+        echo 'Error: '. $e->getMessage();
+    }
+}
     
 
     

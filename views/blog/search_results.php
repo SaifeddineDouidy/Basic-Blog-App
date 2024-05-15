@@ -8,10 +8,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h3 class='ml-2 mt-3'>Search Results for: <?= htmlspecialchars($searchQuery)?></h3>
+    <div style="border-style: solid; border-width: 5px; border-color: #6b91F9; margin: 10px; margin-right: 1100px; margin-left: 30px; border-radius: 10px; padding: 5px; text-align: center; ">
+    <h3 class='' >Search Results for: <?= htmlspecialchars($searchQuery)?></h3></div>
     <?php if (count($blogs) > 0):?>
         <?php foreach ($blogs as $blog):?>
-            <div class="card ml-2 mb-3 border-dark blog-post-card">
+            <div class="card  border-dark " style="margin: 30px 150px; border-radius: 20px;">
                 <div class="card-body">
                     <h2 class="card-title"><?= htmlspecialchars($blog->getTitre())?></h2>
                     <p class="card-text"><?= htmlspecialchars($blog->getDescription())?></p>
@@ -21,7 +22,7 @@
                             By <?= htmlspecialchars($blog->getAuthorName())?>
                         </small>
                     </p>
-                    <a href="#" class="btn btn-primary">Read More</a>
+                    <a href="#" class="btn" style="background-color: #6b63ff; color: white;">Read More</a>
                 </div>
             </div>
         <?php endforeach;?>

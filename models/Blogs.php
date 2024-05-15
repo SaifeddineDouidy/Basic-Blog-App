@@ -82,7 +82,7 @@ class Blogs
 
     private function getAuthorNameById($authorId)
     {
-        $query = "SELECT username FROM users WHERE id = :author_id";
+        $query = "SELECT username FROM User WHERE id = :author_id";
         $result = $this->db->fetchOne($query, [':author_id' => $authorId]);
         return $result ? $result['username'] : null;
     }
@@ -94,7 +94,7 @@ class Blogs
     
     public static function searchBytitre($db, $searchQuery)
     {
-        $sql = "SELECT * FROM blogs WHERE titre LIKE :searchQuery";
+        $sql = "SELECT * FROM Blogs WHERE titre LIKE :searchQuery";
         $params = [
             ':searchQuery' => "%$searchQuery%"
         ];
@@ -109,7 +109,7 @@ class Blogs
 
     public static function findAll(Database $db)
     {
-        $query = "SELECT * FROM blogs";
+        $query = "SELECT * FROM Blogs";
         $result = $db->fetchAll($query);
         $blogs = [];
         foreach ($result as $row) {
@@ -120,7 +120,7 @@ class Blogs
 
     public static function findByAuthorId($authorId, Database $db)
     {
-        $query = "SELECT * FROM blogs WHERE author_id = :author_id";
+        $query = "SELECT * FROM Blogs WHERE author_id = :author_id";
         $result = $db->fetchAll($query, [':author_id' => $authorId]);
         $blogs = [];
         foreach ($result as $row) {
@@ -138,37 +138,25 @@ class Blogs
         }
     }
 
-    public function create($author_id, $titre, $description, $genre)
+    private function create()
     {
-        // Prepare the SQL statement
-        $sql = "INSERT INTO blogs (titre, description, genre, author_id) VALUES (?,?,?,?)";
-    
-        // Prepare the statement
-        $stmt = $this->db->prepare($sql);
-    
-        // Bind the parameters
-        $stmt->bindValue(1, $titre, PDO::PARAM_STR);
-        $stmt->bindValue(2, $description, PDO::PARAM_STR);
-        $stmt->bindValue(3, $genre, PDO::PARAM_STR);
-        $stmt->bindValue(4, $author_id, PDO::PARAM_INT); // Use the author_id parameter
-    
-        // Execute the statement
-        $stmt->execute();
-    
-        // Return the inserted blog's ID or a success indicator
-        return $stmt->rowCount() > 0;
-    }
-    
-    
-
-
-    private function update()
-    {
-        $query = "UPDATE blogs SET titre = :titre, description = :description, genre = :genre, updated_at = :updated_at WHERE id = :id";
+        $query = "INSERT INTO Blogs (titre, description, created_at, author_id) VALUES (:titre, :description, :created_at, :author_id)";
         $params = [
             ':titre' => $this->titre,
             ':description' => $this->description,
-            ':genre' => $this->genre,
+            ':created_at' => time(),
+            ':author_id' => $this->author_id
+        ];
+        $this->db->query($query, $params);
+        $this->id = $this->db->pdo->lastInsertId();
+    }
+
+    private function update()
+    {
+        $query = "UPDATE Blogs SET titre = :titre, description = :description, updated_at = :updated_at WHERE id = :id";
+        $params = [
+            ':titre' => $this->titre,
+            ':description' => $this->description,
             ':updated_at' => time(),
             ':id' => $this->id
         ];
@@ -177,7 +165,7 @@ class Blogs
 
     public function deleteById($blogId)
     {
-        $sql = "DELETE FROM blogs WHERE id = :blogId";
+        $sql = "DELETE FROM Blogs WHERE id = :blogId";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':blogId', $blogId, PDO::PARAM_INT);
         $stmt->execute();
@@ -198,4 +186,34 @@ class Blogs
             throw new Exception("Description cannot be empty.");
         }
     }
+
+    public function findBlogsByGenre($genre) {
+        $query = "SELECT * FROM blogs WHERE genre = :genre";
+        $params = [':genre' => $genre];
+        $results = $this->db->fetchAll($query, $params);
+        
+        // Assuming Blogs::fetchAll() method returns an array of Blogs objects
+        $blogs = [];
+        foreach ($results as $result) {
+            $blogs[] = new Blogs($this->db, $result);
+        }
+        
+        return $blogs;
+    }
+
+
+
+public function findLastBlog()
+{
+    $query = "SELECT *, FROM_UNIXTIME(created_at) as formatted_created_at FROM blogs ORDER BY created_at DESC LIMIT 1";
+    $result = $this->db->fetchOne($query);
+    return $result ? new Blogs($this->db, $result) : null;
+}
+
+public function findOldestBlog()
+{
+    $query = "SELECT *, FROM_UNIXTIME(created_at) as formatted_created_at FROM blogs ORDER BY created_at ASC LIMIT 1";
+    $result = $this->db->fetchOne($query);
+    return $result ? new Blogs($this->db, $result) : null;
+}
 }

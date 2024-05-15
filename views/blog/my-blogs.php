@@ -37,7 +37,7 @@ $blogs = Blogs::findByAuthorId($userId, $db);
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #007bff;
+            background-color: #6b63ff;
             color: #fff;
             font-size: 3rem;
             border-radius: 0.25rem;
@@ -53,7 +53,7 @@ $blogs = Blogs::findByAuthorId($userId, $db);
                 <?php foreach ($blogs as $blog):?>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card shadow-sm">
-                            <div class="card-body">
+                            <div class="card-body custom-card-body" >
                                 <h2 class="card-title"><?= htmlspecialchars($blog->getTitre())?></h2>
                                 <p class="card-text"><?= htmlspecialchars($blog->getDescription())?></p>
                                 <p class="card-text">
@@ -116,7 +116,7 @@ $blogs = Blogs::findByAuthorId($userId, $db);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Blog</button>
+                    <button type="submit" class="btn " style="background-color: #6b63ff; color: white;">Create Blog</button>
                 </div>
             </form>
         </div>

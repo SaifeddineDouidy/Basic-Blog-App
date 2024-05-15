@@ -18,6 +18,8 @@ class UserController {
                 $_SESSION['message'] = "Adresse e-mail déjà existante!";
                 $_SESSION['message_type'] = "yellow";
             } else {
+
+
                 if ($this->model->createUser($username, $email, $password, $db)) {
                     $_SESSION['message'] = "Inscription réussie!";
                     $_SESSION['message_type'] = "green";
@@ -43,7 +45,9 @@ class UserController {
             $password = $_POST['password'];
     
             if (User::checkCredentials($email, $password, $db)) {
-                $_SESSION['user_id'] = $db->lastInsertId(); // Correct this if needed, it should fetch the user ID, not the last inserted ID.
+                // Fetch user data and store in session if needed
+                $user = User::findUser($email, $password, $db);
+                $_SESSION['user_id'] = $user->getId(); // Adjust this line to get the user ID from the user object
                 $_SESSION['username'] = $email;
                 $_SESSION['logged_in'] = true;
     
@@ -58,4 +62,4 @@ class UserController {
         require_once 'views/auth/login.php';
     }
 }
-?>
+

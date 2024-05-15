@@ -8,19 +8,19 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed ">
+    <nav class="navbar navbar-expand-lg navbar-light fixed"  style="background-color: #2c2c54;">
         <div class="container">
-            <a class="navbar-brand" href="#">Blog App</a>
+            <a class="navbar-brand" href="#" style="color: white; font-weight: bold;">Blog App</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php?route=all-blogs">All Blogs </a>
+                        <a class="nav-link" href="index.php?route=all-blogs" style="color: white; font-weight: bold;">All Blogs </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php?route=my-blogs">My Blogs <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.php?route=my-blogs" style="color: white;font-weight: bold;">My Blogs <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>

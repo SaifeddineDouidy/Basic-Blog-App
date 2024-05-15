@@ -24,13 +24,18 @@
                 <div class="card-body p-5 text-center">
                     <h3 class="mb-5">Sign up</h3>
                     <form id='signup-form' method="post" action="register.php" class='col-md-12'>
-                        
-                    <?php if (isset($_SESSION['message'])):?>
-                        <div class="message <?= $_SESSION['message_type']?>">
-                            <?= $_SESSION['message']?>
-                        </div>
-                        <?php unset($_SESSION['message'], $_SESSION['message_type']);?>
-                    <?php endif;?>
+                       
+                    <?php
+                        session_start();
+
+                        if(isset($_SESSION['message'])) {
+                            $message = $_SESSION['message'];
+                            $message_type = $_SESSION['message_type'];
+                            unset($_SESSION['message']);
+                            unset($_SESSION['message_type']);
+                            echo "<div class='notification $message_type'>$message</div>";
+                        }
+                    ?>
 
                         <div class="form-group">
                             <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="Username" required>

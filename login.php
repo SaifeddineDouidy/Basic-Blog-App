@@ -20,35 +20,30 @@
     </style>
 </head>
 <body class='login-body'>
-<div class="container-fluid ps-md-0">
-  <div class="row g-0">
-    <div class="col-md-8 col-lg-6">
-      <div class="login d-flex align-items-center py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9 col-lg-8 mx-auto">
+
+              <div class="container">
 
               <!-- Wrap the form in a Bootstrap card -->
-              <div class="card shadow-lg border-0 rounded-lg mt-4">
-                <div class="card-header"><h3 class="text-center font-weight-light">Welcome back!</h3></div>
-                <div class="card-body">
+              <div class="card   border-0 rounded-lg mt-4">
+                <div class="card-header"><h3 class="text-center font-weight-bold">Welcome back!</h3></div>
+                <div class="card-body alignit">
+                  <br><br>
+                  <br>
 
                   <form action="logincontrol.php" method="post">
-                  <label>Email:</label><br>
-                  <input type="email" name="email" required><br>
-                  <label>Password:</label><br>
-                  <input type="password" name="password" required><br><br>
-                  <input type="submit" value="login">
+                  <label class="label1">Email:</label><br>
+                  <input type="email" name="email" placeholder="your email here" class="input1" required><br><br><br>
+                  <label class="label1">Password:</label><br>
+                  <input type="password" name="password" placeholder="your password here" class="input1" required><br><br>
+                  <input type="submit" value="Login" class="button">
                   </form>
                       <div class="text-center">
                         <a class="small" href="#">Forgot password?</a>
                       </div>
                     </div>
-                  </form>
                 </div>
             </div>
-        </div>
-    </div>
+       
 </section>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa4RoGCh2RFi3sZ9AKRQ8KnvD" crossorigin="anonymous"></script>
