@@ -1,6 +1,8 @@
 <?php
+require_once 'controllers/BlogController.php';
 
-// Check if the 'route' parameter is set in the URL
+$blogController = new BlogController();
+
 if (isset($_GET['route'])) {
     $route = $_GET['route'];
 } else {
@@ -23,9 +25,19 @@ switch ($route) {
     case 'search_results':
         include 'views/blog/search_results.php';
         break;
-
-
-        
+    case 'last-blog':
+        $blogController->getLastBlog();
+        break;
+    case 'oldest-blog':
+        $blogController->getOldestBlog();
+        break;
+    case 'blogs-by-genre':
+        if(isset($_GET['genre'])) {
+            $blogController->getBlogsByGenre($_GET['genre']);
+        } else {
+            // Handle error
+        }
+        break;
     // Add more routes as needed
     default:
         include 'views/LandingPage.php'; // Assuming views folder is at the same level as index.php

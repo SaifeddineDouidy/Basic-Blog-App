@@ -1,40 +1,34 @@
 <?php
+
 require_once 'config/Database.php';
 require_once 'models/Blogs.php';
+include 'views/header.php';
 
-// Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 } else {
-    // Redirect to login page or display an error message
-    //header("Location: login.php");
-    //exit;
     $userId = 1;
 }
 
-// Initialize the database and blog model
 $db = new Database();
-
-// Fetch blogs for the current user
 $blogs = Blogs::findAll($db);
 
-// Include the header first
-include 'views/header.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blogs</title>
+    <title>All Blogs</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="public/css/all-blogs.css" rel="stylesheet">
+    <link href="./all-blogs.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Search Bar -->
+   
     <div class="container searchBar mt-5 mb-4">
         <div class="text-center mb-3">
-            <h3>Search for various blogs !</h3>
+            <h3>Search for various blogs!</h3>
         </div>
         <form action="search.php" method="GET">
             <div class="input-group">
@@ -45,6 +39,35 @@ include 'views/header.php';
             </div>
         </form>
     </div>
+
+    <!-- Updated Filter Section -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose
+                </button>
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                    <div class="dropdown-divider"></div>
+                    <a href="index.php?route=last-blog" class="dropdown-item">Last Blog</a>
+                    <a href="index.php?route=oldest-blog" class="dropdown-item">Oldest Blog</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Travel">Travel</a>
+                    <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Technology">Technology</a>
+                    <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Health">Health</a>
+                    <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Literature">Literature</a>
+                    <!-- Add more genres as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
 
     <?php if (count($blogs) > 0):?>
         <?php foreach ($blogs as $blog):?>
@@ -67,10 +90,10 @@ include 'views/header.php';
                 </div>
             </div>
         <?php endforeach;?>
+    <?php else:?>
+        <p>No blogs found.</p>
     <?php endif;?>
 
-
-    <!-- Include the footer -->
     <?php include 'views/footer.php';?>
 </body>
 </html>

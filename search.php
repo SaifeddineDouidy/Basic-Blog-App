@@ -1,4 +1,6 @@
 <?php
+
+// search.php
 require_once 'controllers/BlogController.php';
 
 $blogController = new BlogController();
@@ -9,3 +11,4 @@ if (isset($_GET['query'])) {
     //header("Location: /"); 
     exit;
 }
+?>

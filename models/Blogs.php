@@ -1,4 +1,5 @@
 <?php
+// models/Blogs.php
 
 class Blogs
 {
@@ -7,7 +8,6 @@ class Blogs
     private $description;
     private $genre;
     private $author_id;
-    private $created_at;
     private $db;
 
     public function __construct(Database $db, $data = [])
@@ -80,9 +80,11 @@ class Blogs
         $this->genre = $genre;
     }
 
+    
+
     private function getAuthorNameById($authorId)
     {
-        $query = "SELECT username FROM users WHERE id = :author_id";
+        $query = "SELECT username FROM user WHERE id = :author_id";
         $result = $this->db->fetchOne($query, [':author_id' => $authorId]);
         return $result ? $result['username'] : null;
     }
@@ -91,6 +93,8 @@ class Blogs
     {
         return $this->getAuthorNameById($this->author_id);
     }
+
+    
     
     public static function searchBytitre($db, $searchQuery)
     {
@@ -172,6 +176,37 @@ class Blogs
 
         return $stmt->rowCount() > 0;
     }
+
+
+    public function findBlogsByGenre($genre) {
+        $query = "SELECT * FROM blogs WHERE genre = :genre";
+        $params = [':genre' => $genre];
+        $results = $this->db->fetchAll($query, $params);
+        
+        // Assuming Blogs::fetchAll() method returns an array of Blogs objects
+        $blogs = [];
+        foreach ($results as $result) {
+            $blogs[] = new Blogs($this->db, $result);
+        }
+        
+        return $blogs;
+    }
+
+
+
+public function findLastBlog()
+{
+    $query = "SELECT *, FROM_UNIXTIME(created_at) as formatted_created_at FROM blogs ORDER BY created_at DESC LIMIT 1";
+    $result = $this->db->fetchOne($query);
+    return $result ? new Blogs($this->db, $result) : null;
+}
+
+public function findOldestBlog()
+{
+    $query = "SELECT *, FROM_UNIXTIME(created_at) as formatted_created_at FROM blogs ORDER BY created_at ASC LIMIT 1";
+    $result = $this->db->fetchOne($query);
+    return $result ? new Blogs($this->db, $result) : null;
+}
 
     private function validateTitre($titre)
     {

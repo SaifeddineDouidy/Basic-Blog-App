@@ -1,5 +1,7 @@
 <?php
 
+//controllers/BlogController.php
+
 require_once 'config/Database.php';
 require_once 'models/Blogs.php';
 
@@ -58,6 +60,7 @@ class BlogController
             echo 'Error: '. $e->getMessage();
         }
     }
+    
     public function searchBlogs() {
         try {
             $searchQuery = isset($_GET['query'])? $_GET['query'] : '';
@@ -132,10 +135,42 @@ class BlogController
         }
     }
     
+    public function getLastBlog()
+    {
+        try {
+            $lastBlog = $this->blogModel->findLastBlog();
+            if ($lastBlog) {
+                $this->renderView('last-blog', ['lastBlog' => $lastBlog]);
+            } else {
+                // Handle case when no last blog is found
+                echo "No last blog found";
+            }
+        } catch (PDOException $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
 
-    
+    public function getOldestBlog()
+    {
+        try {
+            $oldestBlog = $this->blogModel->findOldestBlog();
+            $this->renderView('oldest-Blog', ['oldestBlog' => $oldestBlog]);
+        } catch (PDOException $e) {
+            echo 'Error: '. $e->getMessage();
+        }
+    }
 
-    
+        
+    public function getBlogsByGenre($genre)
+{
+    try {
+        // Assuming you have a method named findBlogsByGenre in your Blogs model
+        $blogs = $this->blogModel->findBlogsByGenre($genre);
+        $this->renderView('blogs-by-genre', ['blogs' => $blogs, 'genre' => $genre]);
+    } catch (PDOException $e) {
+        echo 'Error: '. $e->getMessage();
+    }
+}
 
 
 }
