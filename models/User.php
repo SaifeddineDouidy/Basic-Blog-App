@@ -39,7 +39,7 @@ class User
     // Other methods for interacting with the database (create, read, update, delete)
     public static function findById($id, $db)
     {
-        // Query the database to retrieve a user by ID using $db
+        // Query the database to retrieve a user by IDsing $db
     }
 
     public static function findByEmail($email, $db)
@@ -55,6 +55,22 @@ class User
         return $stmt->rowCount() > 0;
     }
 
+    public static function checkCredentials($email, $password, $db) {
+        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+    
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($user && password_verify($password, $user['password'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+
     // Method to insert a new user
     public static function createUser($username, $email, $password, $db)
     {
@@ -62,10 +78,11 @@ class User
         $stmt->execute([
             'username' => $username,
             'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT) // Hash the password
+            'password' => $password,
         ]);
         return $stmt->rowCount() > 0;
     }
+
 
     public function update()
     {

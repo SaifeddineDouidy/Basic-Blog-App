@@ -28,7 +28,7 @@
                 </ul>
                 <a href="index.php?route=login" class="btn btn-primary ml-2" style="color: white; text-decoration: none;">Login</a>
 
-                <a href="index.php?route=register" class="btn btn-primary ml-2" style="color: white; text-decoration: none;">Sign Up</a>
+                <a href="index.php?route=signup" class="btn btn-primary ml-2" style="color: white; text-decoration: none;">Sign Up</a>
                 <a href="index.php?route=my-blogs" class="btn btn-primary ml-2" style="color: white; text-decoration: none;">TEST BUTTON</a>
             </div>
         </div>

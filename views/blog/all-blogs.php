@@ -71,6 +71,5 @@ include 'views/header.php';
 
 
     <!-- Include the footer -->
-    <?php include 'views/footer.php';?>
 </body>
 </html>
