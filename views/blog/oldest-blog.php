@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= htmlspecialchars($oldestBlog->getTitre()) ?></h5>
                     <p class="card-text"><?= htmlspecialchars($oldestBlog->getDescription()) ?></p>
-                    <p class="card-text"><small class="text-muted">Posted on <?= htmlspecialchars(date('M d, Y', strtotime($oldestBlog->created_at))) ?></small></p>
+                    <p class="card-text"><small class="text-muted">Posted on <?= htmlspecialchars(date('M d, Y', strtotime($oldestBlog->getCreatedAt()))) ?></small></p>
                     <p class="card-text"><small class="text-muted">By <?= htmlspecialchars($oldestBlog->getAuthorName())?>
                     <p class="card-text"><small class="text-muted">Genre: <?= htmlspecialchars($oldestBlog->getGenre()) ?></small></p>
                 </div>

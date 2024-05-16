@@ -183,7 +183,7 @@ background-color: #4CAF50; /* Green */
 }
 .input1{
    
-    border-color: rgb(73, 53, 154);
+    border-color: rgba(171, 170, 173, 0.709);
     border-radius: 5px;
     padding: 5px;
     width: 350px;

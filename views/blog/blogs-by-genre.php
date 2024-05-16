@@ -16,13 +16,13 @@
                     <div class="card-body">
                         <h5 class="card-title"><?= htmlspecialchars($blog->getTitre()) ?></h5>
                         <p class="card-text"><?= htmlspecialchars($blog->getDescription()) ?></p>
-                        <p class="card-text"><small class="text-muted">Posted on <?= htmlspecialchars(date('M d, Y', strtotime($blog->created_at))) ?></small></p>
+                        <p class="card-text"><small class="text-muted">Posted on <?= htmlspecialchars(date('M d, Y', strtotime($blog->getCreatedAt()))) ?></small></p>
                         <p class="card-text"><small class="text-muted">By <?= htmlspecialchars($blog->getAuthorName())?>
                         <p class="card-text"><small class="text-muted">Genre: <?= htmlspecialchars($blog->getGenre()) ?></small></p>
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php else: ?>
+        <?php else: ?>x
             <p>No blogs found in this genre.</p>
         <?php endif; ?>
     </div>

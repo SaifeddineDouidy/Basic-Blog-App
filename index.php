@@ -22,7 +22,10 @@ if ($route === 'register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 switch ($route) {
     case 'login':
         include './login.php';
-        
+    
+        break;
+    case 'incorrect':
+        include './incorrectpass.php';
         break;
     case 'signup':
         include 'views/auth/signup.php';
@@ -53,4 +56,6 @@ switch ($route) {
         include 'views/LandingPage.php';
         break;
 }
+
+
 }

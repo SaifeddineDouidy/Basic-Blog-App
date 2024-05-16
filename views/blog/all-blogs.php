@@ -46,41 +46,44 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     <div class="container">
     <div class="row">
         <div class="row">
-            
-            <div class="dropdown">
+            <h4> Filter By: </h4>
+            <div class="dropdown"></div>
                 <button class="btn  dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #6b63ff; color: white; margin: 0px 20px;">
-                Filter By: 
+                    By Date
                 </button>
                 
-                <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
-                    Date
-                </button>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                 <div class="dropdown-divider"></div>
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                    
                     <a href="index.php?route=last-blog" class="dropdown-item">Last Blog</a>
                     <a href="index.php?route=oldest-blog" class="dropdown-item">Oldest Blog</a>
+                    
+                    <!-- Add more genres as needed -->
                 </div>
-                </div>
-                <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
-                    Gengre
+            </div>
+            <div class="dropdown">
+                <button class="btn  dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #6b63ff; color: white;">
+                    By Genre
                 </button>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                 <div class="dropdown-divider"></div>
+                
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                   
+                   
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Travel">Travel</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Technology">Technology</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Health">Health</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Literature">Literature</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=poetry">Poetry</a>
+                    <!-- Add more genres as needed -->
                 </div>
                 </div>
-            </div>
-            </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
 
     <?php if (count($blogs) > 0):?>
         <?php foreach ($blogs as $blog):?>
@@ -106,7 +109,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     <?php endif;?>
 
 
-    <!-- Include the footer -->
+   <!-- Include the footer -->
+   
 </body>
 </html><?php
 

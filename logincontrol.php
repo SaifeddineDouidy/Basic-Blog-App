@@ -39,7 +39,7 @@ if(mysqli_num_rows($result)===1){
         exit();
     }
     else{
-        header("Location: ./index.php?error=Incorrect email or password");}
+        header("Location: ./index.php?route=incorrect");}
 }
 else{
     header("Location ./index.php");
