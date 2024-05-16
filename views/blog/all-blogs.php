@@ -46,36 +46,37 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
     <div class="container">
     <div class="row">
         <div class="row">
-            <h4> Filter By: </h4>
-            <div class="dropdown"></div>
+            
+            <div class="dropdown">
                 <button class="btn  dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #6b63ff; color: white; margin: 0px 20px;">
-                    By Date
+                Filter By: 
                 </button>
                 
-                <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                    <div class="dropdown-divider"></div>
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                    Date
+                </button>
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 <div class="dropdown-divider"></div>
                     <a href="index.php?route=last-blog" class="dropdown-item">Last Blog</a>
                     <a href="index.php?route=oldest-blog" class="dropdown-item">Oldest Blog</a>
-                    
-                    <!-- Add more genres as needed -->
                 </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn  dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #6b63ff; color: white;">
-                    By Genre
+                </div>
+                <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                    Gengre
                 </button>
-                
-                <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                   
-                    <div class="dropdown-divider"></div>
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Travel">Travel</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Technology">Technology</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Health">Health</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=Literature">Literature</a>
                     <a class="dropdown-item" href="index.php?route=blogs-by-genre&genre=poetry">Poetry</a>
-                    <!-- Add more genres as needed -->
                 </div>
                 </div>
+            </div>
+            </div>
             </div>
         </div>
     </div>
